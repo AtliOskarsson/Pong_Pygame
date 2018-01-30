@@ -2,6 +2,38 @@ import pygame
 from pygame.locals import *
 from random import randint
 
+yes = True
+maybe = True
+while True:
+    while True:
+        try:
+            scoremax = int(input("Uppá hvað verður leikurinn?(tómt = infinite) "))
+        except ValueError:
+            scoremax = ""
+            break
+        break
+
+
+    name1 = input("Nafn uppí 5 characters: ")
+    name2 = input("Nafn uppí 5 characters: ")
+
+    if scoremax == "":
+        if scoremax == "":
+            scoremax = False
+        elif type(scoremax) == int:
+            if int(scoremax) <= 1:
+                scoremax = False
+    else:
+        print("sss")
+        yes = False
+
+    if len(name1) > 5 or len(name2) > 5:
+        print("ssssssssssd")
+        maybe = False
+
+    if yes == True and maybe == True:
+        break
+
 pygame.init()
 pygame.font.init()
 
@@ -37,7 +69,6 @@ ball_yvel = ballYList[randint(0,3)]
 
 score1 = 0
 score2 = 0
-
 
 window.fill(BLACK)
 
@@ -83,7 +114,6 @@ while running:
     player2_y_position += player2_y_velocity
 
     window.fill(BLACK)
-
     # Objects
     ball = pygame.draw.circle(window, WHITE, (ball_xpos, ball_ypos), 10)
     rect1 = pygame.draw.rect(window, WHITE, pygame.Rect(player1_x_position, player1_y_position, 15, 60))
@@ -93,9 +123,13 @@ while running:
     pygame.draw.line(window, RED, (60+15, player1_y_position + 60), (60+15, player1_y_position))
     pygame.draw.line(window, RED, (890, player2_y_position + 60), (890, player2_y_position))
     # Text
+    name1Score = myfont.render(str(name1), True, (WHITE))
+    window.blit(name1Score, (10, -5))
     player1Score = myfont.render(str(score1), True, (WHITE))
     window.blit(player1Score, (25, 25))
 
+    name1Score = myfont.render(str(name2), True, (WHITE))
+    window.blit(name1Score, (880, -5))
     player2Score = myfont.render(str(score2), True, (WHITE))
     window.blit(player2Score, (900, 25))
 
@@ -125,10 +159,10 @@ while running:
         ball_yvel = ballYList[randint(0,3)]
         score2 += 1
 
-    if player1_y_position > 705 or player1_y_position < 75:
+    if player1_y_position > 708 or player1_y_position < 75:
         player1_y_velocity = 0
 
-    if player2_y_position > 705 or player2_y_position < 75:
+    if player2_y_position > 708 or player2_y_position < 75:
         player2_y_velocity = 0
 
     pygame.display.update()
