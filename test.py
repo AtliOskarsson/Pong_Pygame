@@ -69,6 +69,7 @@ ball_yvel = ballYList[randint(0,3)]
 
 score1 = 0
 score2 = 0
+hradi = 1
 
 window.fill(BLACK)
 
@@ -133,16 +134,20 @@ while running:
     player2Score = myfont.render(str(score2), True, (WHITE))
     window.blit(player2Score, (900, 25))
 
+    hraditexti = myfont.render("Hraði: "+ str(hradi), True, (WHITE))
+    window.blit(hraditexti, (435, -5))
 
     if player1_x_position < ball_xpos < player1_x_position + 25 and player1_y_position < ball_ypos < player1_y_position + 60:
         print("hit1")
         ball_xvel *= -1
         ball_xvel += 2
+        hradi += 1
 
     if player2_x_position - 5 < ball_xpos < player2_x_position + 15 and player2_y_position < ball_ypos < player2_y_position + 60:
         print("hit2")
         ball_xvel *= -1
         ball_xvel -= 2
+        hradi += 1
 
     if ball_ypos > 760 or ball_ypos < 80:
         ball_yvel *= -1
@@ -153,6 +158,7 @@ while running:
         ball_xvel = ballXList[randint(0,1)]
         ball_yvel = ballYList[randint(0,3)]
         score1 +=1
+        hradi = 1
 
     if ball_xpos < 0:
         ball_xpos = 480
@@ -160,6 +166,7 @@ while running:
         ball_xvel = ballXList[randint(0,1)]
         ball_yvel = ballYList[randint(0,3)]
         score2 += 1
+        hradi = 1
 
     if player1_y_position > 708 or player1_y_position < 75:
         if player1_y_position > 708:
