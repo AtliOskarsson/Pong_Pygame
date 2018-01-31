@@ -137,10 +137,12 @@ while running:
     if player1_x_position < ball_xpos < player1_x_position + 25 and player1_y_position < ball_ypos < player1_y_position + 60:
         print("hit1")
         ball_xvel *= -1
+        ball_xvel += 2
 
     if player2_x_position - 5 < ball_xpos < player2_x_position + 15 and player2_y_position < ball_ypos < player2_y_position + 60:
         print("hit2")
         ball_xvel *= -1
+        ball_xvel -= 2
 
     if ball_ypos > 760 or ball_ypos < 80:
         ball_yvel *= -1
@@ -160,9 +162,17 @@ while running:
         score2 += 1
 
     if player1_y_position > 708 or player1_y_position < 75:
+        if player1_y_position > 708:
+            player1_y_position = 710
+        if player1_y_position < 75:
+            player1_y_position = 70
         player1_y_velocity = 0
 
     if player2_y_position > 708 or player2_y_position < 75:
+        if player2_y_position > 708:
+            player2_y_position = 710
+        if player2_y_position < 75:
+            player2_y_position = 70
         player2_y_velocity = 0
 
     pygame.display.update()
