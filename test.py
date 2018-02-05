@@ -5,34 +5,16 @@ from random import randint
 yes = True
 maybe = True
 while True:
-    while True:
-        try:
-            scoremax = int(input("Uppá hvað verður leikurinn?(tómt = infinite) "))
-        except ValueError:
-            scoremax = ""
-            break
-        break
-
-
     name1 = input("Nafn uppí 5 characters: ")
     name2 = input("Nafn uppí 5 characters: ")
 
-    if scoremax == "":
-        if scoremax == "":
-            scoremax = False
-        elif type(scoremax) == int:
-            if int(scoremax) <= 1:
-                scoremax = False
-    else:
-        print("sss")
-        yes = False
-
     if len(name1) > 5 or len(name2) > 5:
-        print("ssssssssssd")
-        maybe = False
+        print("5 eða minni stafir")
 
-    if yes == True and maybe == True:
+    else:
         break
+
+
 
 pygame.init()
 pygame.font.init()
@@ -47,6 +29,9 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+litur = [255, 255, 255]
+litur2 = [255, 255, 255]
+rainbow = (randint(0,255), randint(0,255), randint(0,255))
 myfont = pygame.font.SysFont('Comic Sans MS', 30)
 
 ballXList = [-2, 2]
@@ -105,8 +90,7 @@ while running:
             elif event.key == pygame.K_s:
                 player1_y_velocity = 0
 
-
-
+    rainbow = (randint(0, 255), randint(0, 255), randint(0, 255))
     ball_xpos += ball_xvel
     ball_ypos += ball_yvel
 
@@ -117,8 +101,8 @@ while running:
     window.fill(BLACK)
     # Objects
     ball = pygame.draw.circle(window, WHITE, (ball_xpos, ball_ypos), 10)
-    rect1 = pygame.draw.rect(window, WHITE, pygame.Rect(player1_x_position, player1_y_position, 15, 60))
-    rect2 = pygame.draw.rect(window, WHITE, pygame.Rect(player2_x_position, player2_y_position, 15, 60))
+    rect1 = pygame.draw.rect(window, litur, pygame.Rect(player1_x_position, player1_y_position, 15, 60))
+    rect2 = pygame.draw.rect(window, litur2, pygame.Rect(player2_x_position, player2_y_position, 15, 60))
     # Lines
     pygame.draw.line(window, WHITE, (0, 70), (1000, 70))
     pygame.draw.line(window, RED, (60+15, player1_y_position + 60), (60+15, player1_y_position))
@@ -137,18 +121,23 @@ while running:
     hraditexti = myfont.render("Hraði: "+ str(hradi), True, (WHITE))
     window.blit(hraditexti, (435, -5))
 
+    # Gáir hvort að boltinn hittir hægri spilari
     if player1_x_position < ball_xpos < player1_x_position + 25 and player1_y_position < ball_ypos < player1_y_position + 60:
         print("hit1")
+        litur = [randint(0, 255), randint(0, 255), randint(0, 255)]
         ball_xvel *= -1
         ball_xvel += 2
         hradi += 1
 
+    # Gáir hvort að bolti hittir vinsti spilari
     if player2_x_position - 5 < ball_xpos < player2_x_position + 15 and player2_y_position < ball_ypos < player2_y_position + 60:
         print("hit2")
+        litur2 = [randint(0, 255), randint(0, 255), randint(0, 255)]
         ball_xvel *= -1
         ball_xvel -= 2
         hradi += 1
 
+    # Ef y position er
     if ball_ypos > 760 or ball_ypos < 80:
         ball_yvel *= -1
 
@@ -156,7 +145,7 @@ while running:
         ball_xpos = 480
         ball_ypos = 360
         ball_xvel = ballXList[randint(0,1)]
-        ball_yvel = ballYList[randint(0,3)]
+        ball_yvel = randint(-20, 20)
         score1 +=1
         hradi = 1
 
